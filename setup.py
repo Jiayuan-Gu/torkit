@@ -1,8 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+import torkit
 
 setup(
     name="torkit",
-    version="0.1.0.rc0",
+    version=torkit.__version__,
     author="Jiayuan Gu",
     author_email="jigu@eng.ucsd.edu",
     description="Pytorch Toolkit",
@@ -17,7 +18,7 @@ setup(
     ],
     python_requires='>=3.6',
     url="https://github.com/Jiayuan-Gu/torkit",
-    packages=["torkit"],
+    packages=find_packages(exclude=("tests",)),
     long_description="",
     classifiers=[
         "Programming Language :: Python :: 3",
