@@ -1,0 +1,21 @@
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pip
+  - pytorch=1.5.1
+  - cudatoolkit
+  - numpy
+  - scipy
+  - tensorboard
+  - yacs
+  - pytest
+  - loguru
+  # extra but helpful libraries
+  - h5py
+  - cython
+  - natsort
+  - tabulate
+  - tqdm
