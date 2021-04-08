@@ -69,7 +69,8 @@ class Average(Metric):
 
     @property
     def avg(self):
-        return np.sum(self.values) / np.maximum(np.sum(self.counts), 1.0)
+        counts = np.sum(self.counts)
+        return np.sum(self.values) / counts if counts != 0 else float('nan')
 
     @property
     def global_avg(self):

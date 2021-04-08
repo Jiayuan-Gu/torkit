@@ -63,13 +63,12 @@ class IterationBasedTrainer(object):
             self.model_parallel = self.model
 
     def train(self,
-              max_iter,
               start_iter=0,
               logger=None,
               checkpointer: Optional[Checkpointer] = None,
               checkpoint_data: Optional[Dict] = None,
               summary_writer=None,
-              validate=True):
+              validate=False):
         # aliases
         cfg = self.cfg
         model_parallel = self.model_parallel
@@ -77,9 +76,15 @@ class IterationBasedTrainer(object):
         optimizer = self.optimizer
         lr_scheduler = self.lr_scheduler
         train_dataloader = self.train_dataloader
+        max_iter = cfg.TRAIN.MAX_ITER
         is_main_process = comm.is_main_process()
 
         # logging
+        if logger is None:
+            warnings.warn('Logger is not provided. The default loguru logger is used.')
+            from loguru import logger
+
+        # metrics
         train_meters = MetricLogger(delimiter='  ')
         train_meters.metrics.update(model.get_metrics(training=True))
 
@@ -98,6 +103,8 @@ class IterationBasedTrainer(object):
         tic = time.time()
         for iteration, data_batch in enumerate(train_dataloader, start_iter):
             cur_iter = iteration + 1  # 1-index
+            if cur_iter > max_iter:  # in case len(train_dataloader) >= max_iter
+                break
             data_time = time.time() - tic
 
             # Copy data from cpu to gpu
