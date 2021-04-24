@@ -17,8 +17,8 @@ setup(
         'loguru',
     ],
     python_requires='>=3.6',
-    url="https://github.com/Jiayuan-Gu/torkit",
-    packages=find_packages(exclude=("tests",)),
+    url="",
+    packages=find_packages(include=['torkit'], exclude=("tests",)),
     long_description="",
     classifiers=[
         "Programming Language :: Python :: 3",
