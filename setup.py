@@ -8,7 +8,7 @@ setup(
     author_email="jigu@eng.ucsd.edu",
     description="Pytorch Toolkit",
     install_requires=[
-        'torch==1.5.1',
+        'torch>=1.5.1',
         'numpy',
         'scipy',
         'pytest',
